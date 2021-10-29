@@ -4,5 +4,5 @@ t=0
 while [ $t -le 9 ]
 do
   echo "Best School"
-  t=$(( $t + 1 ))
+  t=$(( t + 1 ))
 done

@@ -1,6 +1,8 @@
-times = 0
-while [ $times -le 9 ]
+#!/usr/bin/env bash
+# this script uses while loop to print best school 10 times
+t=0
+while [ $t -le 9 ]
 do
   echo "Best School"
-  x=$(( $time + 1 ))
+  t=$(( t + 1 ))
 done

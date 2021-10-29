@@ -1,0 +1,6 @@
+times = 0
+while [ $times -le 9 ]
+do
+  echo "Best School"
+  x=$(( $time + 1 ))
+done

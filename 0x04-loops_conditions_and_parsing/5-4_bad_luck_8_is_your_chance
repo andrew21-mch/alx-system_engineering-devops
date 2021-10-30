@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# 4 bad luck, 8 good luck, Best School for the other iterations
+i=1
+while [ $i -le 10 ]; do
+	if [ $i == 4 ] ; then
+		echo "bad luck"
+	elif [ $i == 8 ] ; then
+		echo "good luck"
+	else
+		echo "Best School"
+	fi
+	let "i++"
+done

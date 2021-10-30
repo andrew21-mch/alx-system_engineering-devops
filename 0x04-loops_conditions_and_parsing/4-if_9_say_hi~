@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# use if statement in a while loop
+
+a=0
+while[ $a -lt 10 ]
+do
+    echo "Best School"
+    if [ $a == 9 ]
+    then
+	echo "Hi"
+    fi
+    a=$[$a+1]
+done

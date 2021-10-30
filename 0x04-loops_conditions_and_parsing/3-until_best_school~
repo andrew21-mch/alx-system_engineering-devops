@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# print Best schoool 10 times using untill loops
+a=0
+until [ ! $a -lt 10 ]
+do
+    echo "Best Schoool"
+    a = $(a + 1)
+done

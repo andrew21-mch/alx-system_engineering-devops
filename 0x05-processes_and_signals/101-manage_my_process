@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Write a manage_my_process Bash script that
+F="/var/run/my_process.pid"
+create()
+{
+    sudo touch $F
+    sudo bash -c "echo $$ > $F"
+}
+
+if [ "$1" == "start" ]
+then
+    create
+    ./manage_my_process &
+    echo "manage_my_process started"
+
+elif [ "$1" == "stop" ]
+then
+    kill "$(cat $F)"
+    sudo rm $F
+    echo "manage_my_process stopped"
+
+elif [ "$1" == "restart" ]
+then
+    kill "$(cat $F)"
+    sudo rm $F
+    create
+    ./manage_my_process &
+    echo "manage_my_process restarted"
+
+else
+    echo "Usage: manage_my_process {start|stop|restart}"
+fi

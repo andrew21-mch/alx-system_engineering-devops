@@ -15,6 +15,7 @@ $ gem install puppet-lint
 ```
 
 ### Tasks
+
 Using Puppet, create a file in /tmp.
 Requirements:
 - File path is /tmp/school
@@ -22,6 +23,7 @@ Requirements:
 - File owner is www-data
 - File group is www-data
 - File contains I love Puppet
+
 Using Puppet, install puppet-lint.
 Requirements:
 - Install puppet-lint

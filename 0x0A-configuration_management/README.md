@@ -14,7 +14,7 @@ Install puppet-lint
 $ gem install puppet-lint
 ```
 
-<u>Tasks<u>
+### Tasks
 Using Puppet, create a file in /tmp.
 Requirements:
 - File path is /tmp/school

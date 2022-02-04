@@ -8,8 +8,8 @@ frontend striker_balancer
     default_backend striker
 backend striker
     balance roundrobin
-    server 475-web-01 34.138.198.236:80 check
-    server 475-web-02 3.80.231.46:80 check
+    server 475-web-01 34.138.198.236 check
+    server 475-web-02 3.80.231.46 check
 "
 sudo apt-get -y update
 sudo apt-get -y install haproxy

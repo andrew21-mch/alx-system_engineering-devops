@@ -16,3 +16,4 @@ sudo apt-get -y install haproxy
 sudo echo "ENABLED=1" >> /etc/default/haproxy
 sudo echo "$CONF" >> /etc/haproxy/haproxy.cfg
 sudo service haproxy start
+

@@ -1,0 +1,6 @@
+create database if not exists tyrell_corp;
+use tyrell_corp
+create table nexus6 (
+    id int not null auto_increment primary key,
+    name varchar(30) not null
+    );

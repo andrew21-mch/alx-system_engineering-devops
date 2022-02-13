@@ -1,6 +1,7 @@
- #!/usr/bin/python3
- 
-"""Exports data in the CSV format"""
+#!/usr/bin/python3
+"""
+Exports data in the CSV format
+"""
 
 if __name__ == "__main__":
 

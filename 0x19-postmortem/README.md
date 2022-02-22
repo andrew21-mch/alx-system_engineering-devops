@@ -1,23 +1,22 @@
-# 0x19. Postmortem
-This postmortem examines the root cause and resolution of an issue that I faced during a commando project (day long hackathon) at Holberton.
+This postmortem examines the root cause and resolution of an issue that I faced during a report card management system project (6 weeks project)
 
-## Issue Summary
-For our hackathon we were tasked with creating a web application that summarized a user's GitHub commit history by authenticating a user via OAuth with GitHub's API. As a team, our group's relative unfamiliarity with OAuth and the authentication workflow presented challenges when debugging API errors. Ultimately, we were able to resolve our issues with OAuth by comparing our intended requests to the API and the actual requests that were being sent using debugging statements in the backend code. The issue centered around the fact that environment variables exported from the invoking shell were not accessible by processes being managed by a uWSGI application server being run as a daemon.
-
-## Timeline (all in PST)
-- 1:00 pm: User authentication via OAuth is manually performed by following the GitHub API recommended steps.
-- 1:30 pm: Implementation in Flask application fails to reproduce steps taken manually by cURL on the command line. API returns 400-level status codes when attempting to authenticate indicating malformed request.
-- 2:00 pm: OAuth related environment variables, such as consumer secret and consumer key, were verified to be correct by manual comparison with the API provided values for our application.
-- 2:30 pm: Debugging statements in the Flask application involved in completing the OAuth handshake showed that the expected environment variables were absent from requests.
-- 3:00 pm: Investigation on Stackoverflow and Google searches revealed other developers facing similar issues. Closer reading of the uWSGI documentation showed the environment variables must be set directly in the application `.ini` file.
-- 3:30 pm: OAuth fully functional.
-
-## Root Cause
-The Flask microframework can be run independently as an application server by binding it to a host IP and port on the server. For development this is an easy way to test that the application is correctly configured and serving the right content. However, this is unreliable for deployment and does not take advantage of multiple processors or manage the security risks. When testing our OAuth implementation we worked either with `cURL` or with the development Flask application server. As a result, the issues with environment variables being invisible to the deployment uWSGI application were not apparent. After switching to a managed Flask application to more efficiently connect to our static web server the application no longer had access the cosumer secret/key to facilitate authentication with the GitHub API. In retrospect this makes sense, as the uWSGI interpreter is not running under the user that set the environment variables. Furthermore, since it is running as a daemon its parent process has `PID` of `1` (`init`), therefore does not get exported environment variables from the invoking shell.
-
-## Correct and Preventative Measures
-In the future, it would have been faster to resolve this issue had we enabled logging of the exact requests being made by our application. In addition, better use of the command line tool `tcpdump` could have exposed the headers and body of the exact request being made to the API. This would have narrowed down the nature of the problem to the environment variables being used in the application. Because environment variables always return the empty string instead of raising an error when they are not set, the application was sending empty fields rather than encountering an error.
-#### Corrective Measures
-- Set up logging for requests to more easily review what is being sent on the network.
-- Rewrite the application to validate that Python's `os.getenv` function is at least returning a string with a length greater than `0`.
-- Avoid hardcoding secure values such as the cosumer secret/key in the `.ini` file for uWSGI. Better practice might be to use a separate file containing these values with `root` permissions that is read by uWSGI at runtime before changing `uid` to one with lower permissions.
+Issue Summary
+For a report card management system, we had a case of ranking, which was really a pain in the neck, we had already deployed this application hoping to update that issue withing the nearest future, but after the first term, it was a necessity which need urgent attention. This application was built in laravel and few of us knew laravel. so it really demanded alot of time and concentration. because of how urgent it was, we had to come up with the a fast way to implement a solution the the urgent problem, below was how we fixed it.
+Timeline (all in PST)
+- 1:00 pm: Creating of Average table
+- 1:30 pm: Establishing a relationship between the average table and the results table and run some test
+- 2:00 pm: Using laravel, try implementing some data read operations to see the outcome and continue doing until the desired result is out.
+- 2:30 pm: Query the results table in relation to the student and average table to get student rank. make sure it works.
+- 3:00 pm: using Laravel, implement this queries and test to make sure it works, now implement the functions to get student average plus class based on the class
+- 3:30 pm: Student Ranking fully working
+Root Cause
+- There was no table to store student average. because of this, there was not way to easily query information from the database except having to run data multiple Queries on the database which will make the application slower
+Also there existed no relationship between the average class, the student table and the results table. this is a clear indication that trying to run any relational database query will only be a waste of time.
+Correct and Preventative Measures
+In the future, it would have been faster to resolve this issue had we enabled updating the relationship structure of the database.
+Corrective Measures
+- Create a one to one relationship between student and average and a one to many relationship between the average and results table
+- each time you insert a mark into the result table, update the average table by querying the marks and doing all appropriate calculation, next update the result table with the average id
+- To calculate the rank, you might want to query all the averages related to the students class and then do some sorting then find the position of the students average, that will be the position of the student in that class.
+sometimes, when you encounter a problem during development, you need to have a calm head and discuss with team to bring out the best solution.
+Hope it was helpful

@@ -16,5 +16,5 @@ while [ $i -le 20 ]; do
 		*)
 			;;
 	esac
-	let "i++"
+	i=$((i + 1))
 done

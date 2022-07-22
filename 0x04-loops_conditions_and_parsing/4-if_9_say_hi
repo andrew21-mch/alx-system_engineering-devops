@@ -4,8 +4,8 @@ x=0
 while [ $x -lt 10 ];
 do
 	echo "Best School"
-	if [ $i == 8 ] ; then
+	if [ $x == 8 ] ; then
 		echo "Hi"
 	fi
-	let "i++"
+	x=$((x + 1))
 done

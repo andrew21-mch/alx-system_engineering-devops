@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # print Best schoool 10 times using untill loops
-a=0
-until [ ! $a -lt 10 ]
+
+x=10
+until [ $x -lt 1 ];
 do
-    echo "Best Schoool"
-    a=$((a+1))
+     echo "Best School"
+     x=$((x - 1))
 done

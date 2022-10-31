@@ -20,3 +20,4 @@ if __name__ == '__main__':
             my_writer.writerow([int(userId), user.get('username'),
                                 task.get('completed'),
                                 task.get('title')])
+                            

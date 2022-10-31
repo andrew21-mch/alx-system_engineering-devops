@@ -1,32 +1,29 @@
 #!/usr/bin/python3
-"""Exports data in the JSON format"""
+"""
+extend your Python script to export data in the JSON format
+"""
 
-if __name__ == "__main__":
+import json
+import requests
+from sys import argv
 
-    import json
-    import requests
-    import sys
-
-    userId = sys.argv[1]
-    user = requests.get("https://jsonplaceholder.typicode.com/users/{}"
-                        .format(userId))
-    todos = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'.format(userId))
-    todos = todos.json()
-
-    todoUser = {}
-    taskList = []
-
-    for task in todos:
-        taskList.append({
+if __name__ == '__main__':
+    endpoint = "https://jsonplaceholder.typicode.com/"
+    userId = argv[1]
+    records = []
+    user = requests.get(endpoint + "users/{}".
+                        format(userId)).json()
+    todo = requests.get(endpoint + "todos?userId={}".
+                        format(userId)).json()
+    for task in todo:
+        records.append({
             "task": task.get('title'),
             "completed": task.get('completed'),
-            "username": user.json().get('username')
-            })
-
-    records = {
-        "{}".format(userId): taskList
+            "username": user.get('username')
+        })
+    data = {
+        "{}".format(userId): records
     }
 
-    filename = userId + '.json'
-    with open(filename, mode='w') as f:
-        json.dump(records, f)
+    with open("{}.json".format(userId), 'w') as f:
+        json.dump(data, f)

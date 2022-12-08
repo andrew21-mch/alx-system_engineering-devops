@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# configures servers to ensure it runs on port 80
-sudo apt-get -y update
-sudo apt-get -y install nginx
-sudo ufw allow 'nginx http'
-sudo sed -i -e 's/8080/80/g' /etc/nginx/sites-enabled/default
+#Nginx must be running, and listening on port 80
+sudo sed -i "s/sites-enabled/sites-available/" /etc/nginx/nginx.conf
 sudo service nginx restart
